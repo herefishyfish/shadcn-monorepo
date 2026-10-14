@@ -94,7 +94,7 @@ export function KiteView() {
       >
         <span className="text-xl font-semibold text-foreground">Native Station!</span>
         <p className="text-sm text-muted-foreground">
-          NativeScript is a framework for building native applications using JavaScript and CSS. It allows you to build mobile applications using web technologies and share code between iOS and Android.
+          NativeScript is a framework for building native applications using JavaScript and CSS. It allows you to build mobile applications using web technologies and share code between iOS, Android, Web, Windows and more.
         </p>
       </Card>
  

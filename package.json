@@ -1,6 +1,7 @@
 {
   "name": "shadcn-monorepo",
   "private": true,
+  "packageManager": "npm@11.9.0",
   "workspaces": [
     "apps/*",
     "packages/*"
@@ -17,7 +18,7 @@
     "turbo": "^2.5.6"
   },
   "overrides": {
-    "@nativescript/core": "https://pkg.pr.new/@nativescript/core@fa5d852",
+    "@nativescript/core": "https://pkg.pr.new/@nativescript/core@7be61a7",
     "@nativescript/canvas": "3.0.0-beta.4",
     "@nativescript/canvas-svg": "3.0.0-beta.4"
   }
