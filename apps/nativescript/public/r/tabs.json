@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tabs",
+  "title": "Tabs",
+  "description": "Tabs for NativeScript (MasonKit).",
+  "registryDependencies": [
+    "@ns/utils",
+    "@ns/use-controllable"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/tabs.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport { useControllable } from '@/hooks/use-controllable';\n\nconst TabsContext = React.createContext<{ value: string; setValue: (value: string) => void }>({\n  value: '',\n  setValue: () => {},\n});\n\nfunction Tabs({\n  className,\n  value,\n  defaultValue = '',\n  onValueChange,\n  ...props\n}: React.ComponentProps<'div'> & {\n  value?: string;\n  defaultValue?: string;\n  onValueChange?: (value: string) => void;\n}) {\n  const [current, setValue] = useControllable(value, defaultValue, onValueChange);\n  return (\n    <TabsContext.Provider value={{ value: current, setValue }}>\n      <div className={cn('flex flex-col gap-2', className)} {...props} />\n    </TabsContext.Provider>\n  );\n}\n\nfunction TabsList({ className, ...props }: React.ComponentProps<'div'>) {\n  return (\n    <div\n      className={cn('flex h-9 flex-row items-center self-start rounded-lg bg-muted p-[3]', className)}\n      {...props}\n    />\n  );\n}\n\nfunction TabsTrigger({\n  className,\n  value,\n  ...props\n}: Omit<React.ComponentProps<'button'>, 'value'> & { value: string }) {\n  const tabs = React.useContext(TabsContext);\n  const active = tabs.value === value;\n  return (\n    <button\n      className={cn(\n        'flex flex-1 flex-row items-center justify-center self-stretch rounded-md border border-transparent px-2 text-sm font-medium',\n        active\n          ? 'bg-background text-foreground dark:border-input dark:bg-input/30'\n          : 'bg-transparent text-muted-foreground',\n        className,\n      )}\n      onClick={() => tabs.setValue(value)}\n      {...props}\n    />\n  );\n}\n\nfunction TabsContent({ className, value, ...props }: React.ComponentProps<'div'> & { value: string }) {\n  const tabs = React.useContext(TabsContext);\n  if (tabs.value !== value) return null;\n  return <div className={cn('flex flex-col', className)} {...props} />;\n}\n\nexport { Tabs, TabsList, TabsTrigger, TabsContent };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

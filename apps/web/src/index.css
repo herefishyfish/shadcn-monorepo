@@ -1,0 +1,32 @@
+@import '../../../packages/ui/src/theme.css';
+@import 'tailwindcss';
+@source '../../../packages/ui/src';
+@source '.';
+
+/* The shared theme keeps these unitless for NativeScript (dp). Browsers drop a unitless radius. */
+@theme inline {
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 14px;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+/* NativeScript treats unitless lengths as dp. Browsers need a unit. */
+.h-\[1\] { height: 1px; }
+.w-\[1\] { width: 1px; }
+.p-\[3\] { padding: 3px; }
+.px-\[1\] { padding-inline: 1px; }
+.h-\[18\] { height: 18px; }
+.rounded-\[2\] { border-radius: 2px; }
+.rounded-\[4\] { border-radius: 4px; }
+.text-\[10\] { font-size: 10px; }

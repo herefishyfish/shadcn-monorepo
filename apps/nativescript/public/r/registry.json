@@ -1,0 +1,854 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "ns",
+  "homepage": "https://github.com/triniwiz/nativescript-desktop-starter-template-shadcn",
+  "items": [
+    {
+      "name": "slot",
+      "type": "registry:lib",
+      "title": "Slot",
+      "description": "Slot for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils"
+      ],
+      "files": [
+        {
+          "path": "src/lib/slot.tsx",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "theme",
+      "type": "registry:lib",
+      "title": "Theme",
+      "description": "Theme for NativeScript (MasonKit).",
+      "files": [
+        {
+          "path": "src/lib/theme.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "utils",
+      "type": "registry:lib",
+      "title": "Utils",
+      "description": "Utils for NativeScript (MasonKit).",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "use-controllable",
+      "type": "registry:hook",
+      "title": "Use Controllable",
+      "description": "Use Controllable for NativeScript (MasonKit).",
+      "files": [
+        {
+          "path": "src/hooks/use-controllable.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "name": "accordion",
+      "type": "registry:ui",
+      "title": "Accordion",
+      "description": "Accordion for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/accordion.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "alert-dialog",
+      "type": "registry:ui",
+      "title": "Alert Dialog",
+      "description": "Alert Dialog for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils",
+        "@ns/slot",
+        "@ns/overlay",
+        "@ns/button",
+        "@ns/dialog"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/alert-dialog.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "alert",
+      "type": "registry:ui",
+      "title": "Alert",
+      "description": "Alert for NativeScript (MasonKit).",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@ns/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/alert.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "aspect-ratio",
+      "type": "registry:ui",
+      "title": "Aspect Ratio",
+      "description": "Aspect Ratio for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aspect-ratio.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "Avatar for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/avatar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "Badge for NativeScript (MasonKit).",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@ns/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/badge.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "title": "Breadcrumb",
+      "description": "Breadcrumb for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/breadcrumb.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "button-group",
+      "type": "registry:ui",
+      "title": "Button Group",
+      "description": "Button Group for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/button-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "Button for NativeScript (MasonKit).",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@ns/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "calendar",
+      "type": "registry:ui",
+      "title": "Calendar",
+      "description": "Calendar for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils",
+        "@ns/button",
+        "@ns/use-controllable"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/calendar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "Card for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "chart",
+      "type": "registry:ui",
+      "title": "Chart",
+      "description": "Bar, line and area charts drawn with @nativescript/canvas-svg. Register <svg> as src/dom.ts does.",
+      "dependencies": [
+        "@nativescript/canvas-svg"
+      ],
+      "registryDependencies": [
+        "@ns/utils",
+        "@ns/theme",
+        "@ns/table"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/chart.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "Checkbox for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils",
+        "@ns/use-controllable",
+        "@ns/label"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/checkbox.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "collapsible",
+      "type": "registry:ui",
+      "title": "Collapsible",
+      "description": "Collapsible for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils",
+        "@ns/slot",
+        "@ns/use-controllable"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/collapsible.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "command",
+      "type": "registry:ui",
+      "title": "Command",
+      "description": "Command for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils",
+        "@ns/dialog",
+        "@ns/input"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/command.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "context-menu",
+      "type": "registry:ui",
+      "title": "Context Menu",
+      "description": "Context Menu for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils",
+        "@ns/overlay",
+        "@ns/popover",
+        "@ns/dropdown-menu"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/context-menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "Dialog for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils",
+        "@ns/slot",
+        "@ns/use-controllable",
+        "@ns/overlay"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/dialog.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "drawer",
+      "type": "registry:ui",
+      "title": "Drawer",
+      "description": "Drawer for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils",
+        "@ns/overlay",
+        "@ns/dialog"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/drawer.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "title": "Dropdown Menu",
+      "description": "Dropdown Menu for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils",
+        "@ns/overlay",
+        "@ns/popover"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/dropdown-menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "empty",
+      "type": "registry:ui",
+      "title": "Empty",
+      "description": "Empty for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/empty.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "field",
+      "type": "registry:ui",
+      "title": "Field",
+      "description": "Field for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils",
+        "@ns/label"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/field.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "input-group",
+      "type": "registry:ui",
+      "title": "Input Group",
+      "description": "Input Group for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils",
+        "@ns/button",
+        "@ns/input"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/input-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "input-otp",
+      "type": "registry:ui",
+      "title": "Input Otp",
+      "description": "Input Otp for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/input-otp.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "Input for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils",
+        "@ns/label"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "item",
+      "type": "registry:ui",
+      "title": "Item",
+      "description": "Item for NativeScript (MasonKit).",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@ns/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/item.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "kbd",
+      "type": "registry:ui",
+      "title": "Kbd",
+      "description": "Kbd for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/kbd.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "title": "Label",
+      "description": "Label for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/label.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "overlay",
+      "type": "registry:ui",
+      "title": "Overlay",
+      "description": "Overlay for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/overlay.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "pagination",
+      "type": "registry:ui",
+      "title": "Pagination",
+      "description": "Pagination for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils",
+        "@ns/button"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/pagination.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "description": "Popover for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils",
+        "@ns/slot",
+        "@ns/use-controllable",
+        "@ns/overlay"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/popover.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "description": "Progress for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/progress.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "Radio Group",
+      "description": "Radio Group for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils",
+        "@ns/use-controllable",
+        "@ns/label"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/radio-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "scroll-area",
+      "type": "registry:ui",
+      "title": "Scroll Area",
+      "description": "Scroll Area for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/scroll-area.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "Select for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils",
+        "@ns/use-controllable",
+        "@ns/overlay",
+        "@ns/popover"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/select.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "description": "Separator for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/separator.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sheet",
+      "type": "registry:ui",
+      "title": "Sheet",
+      "description": "Sheet for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils",
+        "@ns/overlay",
+        "@ns/dialog"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/sheet.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:ui",
+      "title": "Sidebar",
+      "description": "Sidebar for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils",
+        "@ns/button",
+        "@ns/sheet"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/sidebar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "Skeleton for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/skeleton.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "slider",
+      "type": "registry:ui",
+      "title": "Slider",
+      "description": "Slider for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils",
+        "@ns/use-controllable"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/slider.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sonner",
+      "type": "registry:ui",
+      "title": "Sonner",
+      "description": "Sonner for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils",
+        "@ns/overlay"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/sonner.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "spinner",
+      "type": "registry:ui",
+      "title": "Spinner",
+      "description": "Spinner for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/spinner.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "Switch for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils",
+        "@ns/use-controllable",
+        "@ns/label"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/switch.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "table",
+      "type": "registry:ui",
+      "title": "Table",
+      "description": "Table for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/table.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "Tabs for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils",
+        "@ns/use-controllable"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/tabs.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "description": "Textarea for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils",
+        "@ns/label"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/textarea.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "toggle-group",
+      "type": "registry:ui",
+      "title": "Toggle Group",
+      "description": "Toggle Group for NativeScript (MasonKit).",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@ns/utils",
+        "@ns/toggle"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/toggle-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "toggle",
+      "type": "registry:ui",
+      "title": "Toggle",
+      "description": "Toggle for NativeScript (MasonKit).",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@ns/utils",
+        "@ns/use-controllable"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/toggle.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "Tooltip for NativeScript (MasonKit).",
+      "registryDependencies": [
+        "@ns/utils",
+        "@ns/overlay",
+        "@ns/popover"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/tooltip.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    }
+  ]
+}

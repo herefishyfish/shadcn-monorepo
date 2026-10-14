@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toggle-group",
+  "title": "Toggle Group",
+  "description": "Toggle Group for NativeScript (MasonKit).",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "@ns/utils",
+    "@ns/toggle"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/toggle-group.tsx",
+      "content": "import * as React from 'react';\nimport type { VariantProps } from 'class-variance-authority';\nimport { cn } from '@/lib/utils';\nimport { toggleVariants } from '@/components/ui/toggle';\n\ntype ToggleGroupContextValue = VariantProps<typeof toggleVariants> & {\n  isOn: (value: string) => boolean;\n  toggle: (value: string) => void;\n};\nconst ToggleGroupContext = React.createContext<ToggleGroupContextValue | null>(null);\n\ntype SingleProps = {\n  type: 'single';\n  value?: string;\n  defaultValue?: string;\n  onValueChange?: (value: string) => void;\n};\ntype MultipleProps = {\n  type: 'multiple';\n  value?: string[];\n  defaultValue?: string[];\n  onValueChange?: (value: string[]) => void;\n};\n\nfunction ToggleGroup({\n  className,\n  variant,\n  size,\n  children,\n  ...rest\n}: Omit<React.ComponentProps<'div'>, 'defaultValue'> &\n  VariantProps<typeof toggleVariants> &\n  (SingleProps | MultipleProps)) {\n  const { type, value, defaultValue, onValueChange, ...props } = rest as any;\n  const [inner, setInner] = React.useState<string | string[]>(\n    defaultValue ?? (type === 'multiple' ? [] : ''),\n  );\n  const current = value !== undefined ? value : inner;\n  const set = (next: string | string[]) => {\n    if (value === undefined) setInner(next);\n    onValueChange?.(next);\n  };\n  const isOn = (item: string) =>\n    type === 'multiple' ? (current as string[]).includes(item) : current === item;\n  const toggle = (item: string) => {\n    if (type === 'multiple') {\n      const list = current as string[];\n      set(list.includes(item) ? list.filter((v) => v !== item) : [...list, item]);\n    } else {\n      set(current === item ? '' : item);\n    }\n  };\n  return (\n    <ToggleGroupContext.Provider value={{ variant, size, isOn, toggle }}>\n      <div\n        className={cn(\n          'flex flex-row items-center self-start rounded-md',\n          variant === 'outline' && 'border border-input',\n          className,\n        )}\n        {...props}\n      >\n        {children}\n      </div>\n    </ToggleGroupContext.Provider>\n  );\n}\n\nfunction ToggleGroupItem({\n  className,\n  value,\n  ...props\n}: Omit<React.ComponentProps<'button'>, 'value'> & { value: string }) {\n  const group = React.useContext(ToggleGroupContext)!;\n  const on = group.isOn(value);\n  return (\n    <button\n      className={cn(\n        toggleVariants({ variant: 'default', size: group.size }),\n        'shrink-0 rounded-none px-3',\n        on ? 'bg-accent text-accent-foreground' : 'text-foreground hover:bg-muted',\n        className,\n      )}\n      onClick={() => group.toggle(value)}\n      {...props}\n    />\n  );\n}\n\nexport { ToggleGroup, ToggleGroupItem };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

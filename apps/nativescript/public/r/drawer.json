@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "drawer",
+  "title": "Drawer",
+  "description": "Drawer for NativeScript (MasonKit).",
+  "registryDependencies": [
+    "@ns/utils",
+    "@ns/overlay",
+    "@ns/dialog"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/drawer.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport { Screen, type View } from '@nativescript/core';\nimport { ModalLayer, Portal, Scrim, useEnter } from '@/components/ui/overlay';\nimport { Dialog, DialogClose, DialogTrigger, useDialog } from '@/components/ui/dialog';\n\n// A bottom sheet with a grab handle (shadcn's Drawer, minus drag-to-close).\nconst Drawer = Dialog;\nconst DrawerTrigger = DialogTrigger;\nconst DrawerClose = DialogClose;\n\nfunction DrawerPanel({ className, children, ...props }: React.ComponentProps<'div'>) {\n  const { setOpen } = useDialog();\n  const panel = React.useRef<View>(null);\n  useEnter(panel, { y: Screen.mainScreen.heightDIPs });\n  return (\n    <ModalLayer panelRef={panel} onDismiss={() => setOpen(false)}>\n      <Scrim />\n      <div\n        ref={panel as never}\n        className={cn(\n          'absolute right-0 bottom-0 left-0 flex flex-col rounded-t-xl border-t border-border bg-background pb-6',\n          className,\n        )}\n        {...props}\n      >\n        <div className=\"mt-4 h-1.5 w-24 self-center rounded-full bg-muted\" />\n        {children}\n      </div>\n    </ModalLayer>\n  );\n}\n\nfunction DrawerContent(props: React.ComponentProps<'div'>) {\n  const { open } = useDialog();\n  if (!open) return null;\n  return (\n    <Portal>\n      <DrawerPanel {...props} />\n    </Portal>\n  );\n}\n\nfunction DrawerHeader({ className, ...props }: React.ComponentProps<'div'>) {\n  return <div className={cn('flex flex-col items-center gap-1.5 p-4', className)} {...props} />;\n}\n\nfunction DrawerFooter({ className, ...props }: React.ComponentProps<'div'>) {\n  return <div className={cn('mt-auto flex flex-col gap-2 p-4', className)} {...props} />;\n}\n\nfunction DrawerTitle({ className, ...props }: React.ComponentProps<'h2'>) {\n  return <h2 className={cn('text-center text-base font-semibold text-foreground', className)} {...props} />;\n}\n\nfunction DrawerDescription({ className, ...props }: React.ComponentProps<'p'>) {\n  return <p className={cn('text-center text-sm text-muted-foreground', className)} {...props} />;\n}\n\nexport {\n  Drawer,\n  DrawerClose,\n  DrawerContent,\n  DrawerDescription,\n  DrawerFooter,\n  DrawerHeader,\n  DrawerTitle,\n  DrawerTrigger,\n};\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "popover",
+  "title": "Popover",
+  "description": "Popover for NativeScript (MasonKit).",
+  "registryDependencies": [
+    "@ns/utils",
+    "@ns/slot",
+    "@ns/use-controllable",
+    "@ns/overlay"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/popover.tsx",
+      "content": "import * as React from 'react';\nimport type { View } from '@nativescript/core';\nimport { cn } from '@/lib/utils';\nimport { Slot } from '@/lib/slot';\nimport { useControllable } from '@/hooks/use-controllable';\nimport { ModalLayer, Portal, useAnchorPosition, useEnter } from '@/components/ui/overlay';\n\ntype PopoverContextValue = {\n  open: boolean;\n  setOpen: (open: boolean) => void;\n  anchor: React.RefObject<View | null>;\n};\nconst PopoverContext = React.createContext<PopoverContextValue | null>(null);\n\nfunction usePopover() {\n  const context = React.useContext(PopoverContext);\n  if (!context) throw new Error('Popover parts must be inside <Popover>.');\n  return context;\n}\n\nfunction Popover({\n  open,\n  defaultOpen = false,\n  onOpenChange,\n  children,\n}: {\n  open?: boolean;\n  defaultOpen?: boolean;\n  onOpenChange?: (open: boolean) => void;\n  children?: React.ReactNode;\n}) {\n  const [isOpen, setOpen] = useControllable(open, defaultOpen, onOpenChange);\n  const anchor = React.useRef<View>(null);\n  return (\n    <PopoverContext.Provider value={{ open: isOpen, setOpen, anchor }}>\n      {children}\n    </PopoverContext.Provider>\n  );\n}\n\n/** Opens the popover; the popover is placed against it. */\nfunction PopoverTrigger({ asChild, ...props }: React.ComponentProps<'div'> & { asChild?: boolean }) {\n  const { open, setOpen, anchor } = usePopover();\n  const Comp: any = asChild ? Slot : 'div';\n  // A wrapper, so the anchor can be measured whatever the child is.\n  return (\n    <div ref={anchor as never} className=\"flex flex-col self-start\">\n      <Comp {...props} onClick={() => setOpen(!open)} />\n    </div>\n  );\n}\n\nfunction PopoverPanel({ className, ...props }: React.ComponentProps<'div'>) {\n  const { setOpen, anchor } = usePopover();\n  const panel = React.useRef<View>(null);\n  const { style: position, onPanelLayout } = useAnchorPosition(anchor);\n  useEnter(panel, { opacity: 0, scale: 0.96 });\n  return (\n    <ModalLayer panelRef={panel} onDismiss={() => setOpen(false)}>\n      <div\n        ref={panel as never}\n        className={cn(\n          'absolute flex flex-col rounded-md border border-border bg-popover text-popover-foreground',\n          !position && 'opacity-0',\n          className,\n        )}\n        style={position ?? undefined}\n        onLayoutChanged={onPanelLayout}\n        {...props}\n      />\n    </ModalLayer>\n  );\n}\n\nfunction PopoverContent({ className, ...props }: React.ComponentProps<'div'>) {\n  const { open } = usePopover();\n  if (!open) return null;\n  return (\n    <Portal>\n      <PopoverPanel className={cn('w-72 gap-2 p-4', className)} {...props} />\n    </Portal>\n  );\n}\n\nexport { Popover, PopoverTrigger, PopoverContent, PopoverPanel, usePopover };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

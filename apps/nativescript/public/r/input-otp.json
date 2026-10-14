@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "input-otp",
+  "title": "Input Otp",
+  "description": "Input Otp for NativeScript (MasonKit).",
+  "registryDependencies": [
+    "@ns/utils"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/input-otp.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nconst OTPContext = React.createContext<{ value: string; maxLength: number }>({ value: '', maxLength: 6 });\n\n/**\n * One transparent <input> laid over the slots takes the typing; the slots\n * show its characters. `value` / `onChange(value)` as in shadcn.\n */\nfunction InputOTP({\n  className,\n  maxLength = 6,\n  value,\n  defaultValue = '',\n  onChange,\n  onComplete,\n  children,\n}: {\n  className?: string;\n  maxLength?: number;\n  value?: string;\n  defaultValue?: string;\n  onChange?: (value: string) => void;\n  onComplete?: (value: string) => void;\n  children?: React.ReactNode;\n}) {\n  const [inner, setInner] = React.useState(defaultValue);\n  const current = value ?? inner;\n  const update = (event: any) => {\n    const next = String(event.target.value ?? '').slice(0, maxLength);\n    if (value === undefined) setInner(next);\n    onChange?.(next);\n    if (next.length === maxLength) onComplete?.(next);\n  };\n  return (\n    <OTPContext.Provider value={{ value: current, maxLength }}>\n      <div className={cn('relative flex flex-row items-center gap-2 self-start', className)}>\n        {children}\n        <input className=\"absolute inset-0 opacity-0\" value={current} onInput={update} />\n      </div>\n    </OTPContext.Provider>\n  );\n}\n\nconst SlotPosition = React.createContext<{ first: number; last: number }>({ first: 0, last: 0 });\n\n/** Joins its slots into one box: round outer corners, shared inner borders. */\nfunction InputOTPGroup({ className, children, ...props }: React.ComponentProps<'div'>) {\n  const indexes = React.Children.toArray(children)\n    .filter(React.isValidElement)\n    .map((child: any) => child.props.index as number);\n  return (\n    <SlotPosition.Provider value={{ first: Math.min(...indexes), last: Math.max(...indexes) }}>\n      <div className={cn('flex flex-row items-center', className)} {...props}>\n        {children}\n      </div>\n    </SlotPosition.Provider>\n  );\n}\n\nfunction InputOTPSlot({ className, index, ...props }: React.ComponentProps<'div'> & { index: number }) {\n  const { value, maxLength } = React.useContext(OTPContext);\n  const group = React.useContext(SlotPosition);\n  const char = value[index];\n  const active = index === Math.min(value.length, maxLength - 1);\n  return (\n    <div\n      className={cn(\n        // Not border-y: it compiles to logical properties NativeScript drops.\n        'flex size-9 items-center justify-center border border-input dark:bg-input/30',\n        index === group.first ? 'rounded-l-md' : 'border-l-0',\n        index === group.last && 'rounded-r-md',\n        active && 'border-ring',\n        className,\n      )}\n      {...props}\n    >\n      <span className=\"text-sm text-foreground\">{char ?? ''}</span>\n    </div>\n  );\n}\n\nfunction InputOTPSeparator({ className, ...props }: React.ComponentProps<'span'>) {\n  return (\n    <span role=\"separator\" className={cn('text-sm text-muted-foreground', className)} {...props}>\n      –\n    </span>\n  );\n}\n\nexport { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

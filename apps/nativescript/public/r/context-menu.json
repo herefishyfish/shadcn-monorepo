@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "context-menu",
+  "title": "Context Menu",
+  "description": "Context Menu for NativeScript (MasonKit).",
+  "registryDependencies": [
+    "@ns/utils",
+    "@ns/overlay",
+    "@ns/popover",
+    "@ns/dropdown-menu"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/context-menu.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport { Portal } from '@/components/ui/overlay';\nimport { Popover, PopoverPanel, usePopover } from '@/components/ui/popover';\nimport {\n  DropdownMenuItem,\n  DropdownMenuLabel,\n  DropdownMenuSeparator,\n  DropdownMenuShortcut,\n} from '@/components/ui/dropdown-menu';\n\n// Opens on long-press (touch or mouse); NativeScript has no right-click event.\nconst ContextMenu = Popover;\nconst ContextMenuItem = DropdownMenuItem;\nconst ContextMenuLabel = DropdownMenuLabel;\nconst ContextMenuSeparator = DropdownMenuSeparator;\nconst ContextMenuShortcut = DropdownMenuShortcut;\n\nfunction ContextMenuTrigger({ className, ...props }: React.ComponentProps<'div'>) {\n  const { setOpen, anchor } = usePopover();\n  return (\n    <div\n      ref={anchor as never}\n      className={cn('flex flex-col', className)}\n      onLongPress={() => setOpen(true)}\n      {...props}\n    />\n  );\n}\n\nfunction ContextMenuContent({ className, ...props }: React.ComponentProps<'div'>) {\n  const { open } = usePopover();\n  if (!open) return null;\n  return (\n    <Portal>\n      <PopoverPanel className={cn('min-w-32 p-1', className)} {...props} />\n    </Portal>\n  );\n}\n\nexport {\n  ContextMenu,\n  ContextMenuContent,\n  ContextMenuItem,\n  ContextMenuLabel,\n  ContextMenuSeparator,\n  ContextMenuShortcut,\n  ContextMenuTrigger,\n};\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

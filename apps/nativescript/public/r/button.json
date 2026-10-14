@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button",
+  "title": "Button",
+  "description": "Button for NativeScript (MasonKit).",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "@ns/utils"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/button.tsx",
+      "content": "import * as React from 'react';\nimport { cva, type VariantProps } from 'class-variance-authority';\nimport { cn } from '@/lib/utils';\n\n// `active:` mirrors `hover:` so touch screens get press feedback too.\nconst buttonVariants = cva(\n  'flex shrink-0 flex-row items-center justify-center gap-2 rounded-md text-center text-sm font-medium',\n  {\n    variants: {\n      variant: {\n        default: 'bg-primary text-primary-foreground hover:bg-primary/90 active:bg-primary/90',\n        destructive: 'bg-destructive text-white hover:bg-destructive/90 active:bg-destructive/90',\n        outline:\n          'border border-border bg-background hover:bg-accent hover:text-accent-foreground active:bg-accent dark:border-input dark:bg-input/30 dark:hover:bg-input/50',\n        secondary:\n          'bg-secondary text-secondary-foreground hover:bg-secondary/80 active:bg-secondary/80',\n        ghost:\n          'bg-transparent hover:bg-accent hover:text-accent-foreground active:bg-accent dark:hover:bg-accent/50',\n        link: 'bg-transparent text-primary underline',\n      },\n      size: {\n        default: 'h-9 px-4 py-2',\n        sm: 'h-8 gap-1.5 px-3',\n        lg: 'h-10 px-6',\n        icon: 'size-9',\n      },\n    },\n    defaultVariants: {\n      variant: 'default',\n      size: 'default',\n    },\n  },\n);\n\nfunction Button({\n  className,\n  variant,\n  size,\n  disabled,\n  ...props\n}: React.ComponentProps<'button'> & VariantProps<typeof buttonVariants>) {\n  return (\n    <button\n      className={cn(buttonVariants({ variant, size }), disabled && 'opacity-50', className)}\n      isEnabled={!disabled}\n      {...props}\n    />\n  );\n}\n\nexport { Button, buttonVariants };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

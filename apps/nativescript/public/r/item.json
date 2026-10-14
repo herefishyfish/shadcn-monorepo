@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "item",
+  "title": "Item",
+  "description": "Item for NativeScript (MasonKit).",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "@ns/utils"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/item.tsx",
+      "content": "import * as React from 'react';\nimport { cva, type VariantProps } from 'class-variance-authority';\nimport { cn } from '@/lib/utils';\n\nconst itemVariants = cva('flex flex-row flex-wrap items-center rounded-md border', {\n  variants: {\n    variant: {\n      default: 'border-transparent bg-transparent',\n      outline: 'border-border',\n      muted: 'border-transparent bg-muted/50',\n    },\n    size: {\n      default: 'gap-4 p-4',\n      sm: 'gap-2.5 px-4 py-3',\n    },\n  },\n  defaultVariants: {\n    variant: 'default',\n    size: 'default',\n  },\n});\n\nfunction Item({ className, variant, size, ...props }: React.ComponentProps<'div'> & VariantProps<typeof itemVariants>) {\n  return <div className={cn(itemVariants({ variant, size }), className)} {...props} />;\n}\n\nfunction ItemMedia({\n  className,\n  variant = 'default',\n  ...props\n}: React.ComponentProps<'div'> & { variant?: 'default' | 'icon' | 'image' }) {\n  return (\n    <div\n      className={cn(\n        'flex shrink-0 items-center justify-center',\n        variant === 'icon' && 'size-8 rounded-sm border border-border bg-muted',\n        variant === 'image' && 'size-10 overflow-hidden rounded-sm',\n        className,\n      )}\n      {...props}\n    />\n  );\n}\n\nfunction ItemContent({ className, ...props }: React.ComponentProps<'div'>) {\n  return <div className={cn('flex flex-1 flex-col gap-1', className)} {...props} />;\n}\n\nfunction ItemTitle({ className, ...props }: React.ComponentProps<'span'>) {\n  return <span className={cn('text-sm font-medium text-foreground', className)} {...props} />;\n}\n\nfunction ItemDescription({ className, ...props }: React.ComponentProps<'p'>) {\n  return <p className={cn('text-sm text-muted-foreground', className)} {...props} />;\n}\n\nfunction ItemActions({ className, ...props }: React.ComponentProps<'div'>) {\n  return <div className={cn('flex flex-row items-center gap-2', className)} {...props} />;\n}\n\nfunction ItemHeader({ className, ...props }: React.ComponentProps<'div'>) {\n  return <div className={cn('flex w-full flex-row items-center justify-between gap-2', className)} {...props} />;\n}\n\nfunction ItemFooter({ className, ...props }: React.ComponentProps<'div'>) {\n  return <div className={cn('flex w-full flex-row items-center justify-between gap-2', className)} {...props} />;\n}\n\nfunction ItemGroup({ className, ...props }: React.ComponentProps<'div'>) {\n  return <div className={cn('flex flex-col', className)} {...props} />;\n}\n\nfunction ItemSeparator({ className, ...props }: React.ComponentProps<'div'>) {\n  return <div className={cn('my-0 h-[1] w-full bg-border', className)} {...props} />;\n}\n\nexport {\n  Item,\n  ItemActions,\n  ItemContent,\n  ItemDescription,\n  ItemFooter,\n  ItemGroup,\n  ItemHeader,\n  ItemMedia,\n  ItemSeparator,\n  ItemTitle,\n};\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

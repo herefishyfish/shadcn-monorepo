@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sheet",
+  "title": "Sheet",
+  "description": "Sheet for NativeScript (MasonKit).",
+  "registryDependencies": [
+    "@ns/utils",
+    "@ns/overlay",
+    "@ns/dialog"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/sheet.tsx",
+      "content": "import * as React from 'react';\nimport { Screen, type View } from '@nativescript/core';\nimport { cn } from '@/lib/utils';\nimport { ModalLayer, Portal, Scrim, useEnter } from '@/components/ui/overlay';\nimport { Dialog, DialogClose, DialogTrigger, useDialog } from '@/components/ui/dialog';\n\nconst Sheet = Dialog;\nconst SheetTrigger = DialogTrigger;\nconst SheetClose = DialogClose;\n\ntype Side = 'top' | 'right' | 'bottom' | 'left';\n\nconst sideClasses: Record<Side, string> = {\n  right: 'top-0 right-0 bottom-0 w-3/4 max-w-sm border-l',\n  left: 'top-0 bottom-0 left-0 w-3/4 max-w-sm border-r',\n  top: 'top-0 right-0 left-0 border-b',\n  bottom: 'right-0 bottom-0 left-0 border-t',\n};\n\nfunction SheetPanel({\n  side,\n  className,\n  children,\n  ...props\n}: React.ComponentProps<'div'> & { side: Side }) {\n  const { setOpen } = useDialog();\n  const panel = React.useRef<View>(null);\n  const width = Screen.mainScreen.widthDIPs;\n  const height = Screen.mainScreen.heightDIPs;\n  useEnter(panel, {\n    x: side === 'right' ? width : side === 'left' ? -width : 0,\n    y: side === 'bottom' ? height : side === 'top' ? -height : 0,\n  });\n  return (\n    <ModalLayer panelRef={panel} onDismiss={() => setOpen(false)}>\n      <Scrim />\n      <div\n        ref={panel as never}\n        className={cn(\n          'absolute flex flex-col gap-4 border-border bg-background',\n          sideClasses[side],\n          className,\n        )}\n        {...props}\n      >\n        {children}\n        <SheetClose className=\"absolute top-3 right-3 flex size-8 items-center justify-center rounded-md opacity-70 active:bg-accent\">\n          <span className=\"text-base text-foreground\">✕</span>\n        </SheetClose>\n      </div>\n    </ModalLayer>\n  );\n}\n\nfunction SheetContent({ side = 'right', ...props }: React.ComponentProps<'div'> & { side?: Side }) {\n  const { open } = useDialog();\n  if (!open) return null;\n  return (\n    <Portal>\n      <SheetPanel side={side} {...props} />\n    </Portal>\n  );\n}\n\nfunction SheetHeader({ className, ...props }: React.ComponentProps<'div'>) {\n  return <div className={cn('flex flex-col gap-1.5 p-4', className)} {...props} />;\n}\n\nfunction SheetFooter({ className, ...props }: React.ComponentProps<'div'>) {\n  return <div className={cn('mt-auto flex flex-col gap-2 p-4', className)} {...props} />;\n}\n\nfunction SheetTitle({ className, ...props }: React.ComponentProps<'h2'>) {\n  return <h2 className={cn('text-base font-semibold text-foreground', className)} {...props} />;\n}\n\nfunction SheetDescription({ className, ...props }: React.ComponentProps<'p'>) {\n  return <p className={cn('text-sm text-muted-foreground', className)} {...props} />;\n}\n\nexport {\n  Sheet,\n  SheetTrigger,\n  SheetClose,\n  SheetContent,\n  SheetHeader,\n  SheetFooter,\n  SheetTitle,\n  SheetDescription,\n};\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

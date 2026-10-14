@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "avatar",
+  "title": "Avatar",
+  "description": "Avatar for NativeScript (MasonKit).",
+  "registryDependencies": [
+    "@ns/utils"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/avatar.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nfunction Avatar({ className, ...props }: React.ComponentProps<'div'>) {\n  return <div className={cn('relative flex size-8 shrink-0 overflow-hidden rounded-full', className)} {...props} />;\n}\n\nfunction AvatarImage({ className, ...props }: React.ComponentProps<'img'>) {\n  return <img className={cn('absolute inset-0 size-full', className)} {...props} />;\n}\n\n// Sits under AvatarImage, so it shows until (or unless) the image loads.\nfunction AvatarFallback({ className, children, ...props }: React.ComponentProps<'div'>) {\n  return (\n    <div\n      className={cn('flex size-full items-center justify-center rounded-full bg-muted', className)}\n      {...props}\n    >\n      <span className=\"text-sm text-foreground\">{children}</span>\n    </div>\n  );\n}\n\nexport { Avatar, AvatarImage, AvatarFallback };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "theme",
+  "title": "Theme",
+  "description": "Theme for NativeScript (MasonKit).",
+  "files": [
+    {
+      "path": "src/lib/theme.ts",
+      "content": "import { useSyncExternalStore } from 'react';\nimport { Application, Utils, isAndroid } from '@nativescript/core';\n\ntype Appearance = 'light' | 'dark';\n\n// Read on first use: on Android the system appearance isn't available until\n// the app has started, so it can't be read when this module loads.\nlet appearance: Appearance | undefined;\nfunction current(): Appearance {\n  return (appearance ??= Application.systemAppearance() === 'dark' ? 'dark' : 'light');\n}\n// Follow the OS until the user picks an appearance.\nlet followSystem = true;\nconst listeners = new Set<() => void>();\n\nfunction set(value: Appearance) {\n  appearance = value;\n  listeners.forEach((listener) => listener());\n}\n\nApplication.on(Application.systemAppearanceChangedEvent, (args: any) => {\n  if (followSystem) set(args.newValue);\n});\n\nlet barsHandlerInstalled = false;\n\n/**\n * Android's status and navigation bar icons follow the system theme unless\n * told otherwise: install a handler that reports the app's appearance, then\n * re-apply edge-to-edge so the bars pick it up. (On iOS, `status-bar-style`\n * in src/app.css does this.)\n */\nfunction syncAndroidSystemBars() {\n  if (!isAndroid) return;\n  const activity = Application.android.foregroundActivity ?? Application.android.startActivity;\n  if (!activity) return;\n  if (!barsHandlerInstalled) {\n    barsHandlerInstalled = true;\n    // Core keeps the first handler it's given, so read the state when called.\n    Utils.android.setDarkModeHandler({ activity, handler: () => current() === 'dark' });\n  }\n  Utils.android.refreshEdgeToEdge(activity);\n}\n\nfunction setAppearance(value: Appearance) {\n  followSystem = false;\n  // systemAppearanceChanged() is a no-op while auto is off, so switch it on\n  // just for this call, then off again so the OS stops overriding the choice.\n  Application.setAutoSystemAppearanceChanged(true);\n  Application.systemAppearanceChanged(Application.getRootView(), value);\n  Application.setAutoSystemAppearanceChanged(false);\n  set(value);\n  syncAndroidSystemBars();\n}\n\nfunction toggle() {\n  setAppearance(current() === 'dark' ? 'light' : 'dark');\n}\n\nfunction subscribe(listener: () => void) {\n  listeners.add(listener);\n  return () => listeners.delete(listener);\n}\n\n/**\n * The current appearance, plus a way to override it. Setting it swaps\n * `.ns-light` / `.ns-dark` on the root view, which re-resolves every\n * shadcn token in src/app.css.\n */\nexport function useTheme() {\n  const value = useSyncExternalStore(subscribe, current);\n  return { appearance: value, setAppearance, toggle };\n}\n",
+      "type": "registry:lib"
+    }
+  ],
+  "type": "registry:lib"
+}

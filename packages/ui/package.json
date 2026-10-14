@@ -1,0 +1,28 @@
+{
+  "name": "@repo/ui",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    "./catalog": "./src/catalog.ts",
+    "./theme.css": "./src/theme.css",
+    "./views/*": "./src/views/*.tsx",
+    "./lib/slot": "./src/lib/slot.tsx",
+    "./lib/*": "./src/lib/*.ts",
+    "./hooks/*": "./src/hooks/*.ts",
+    "./*": "./src/components/ui/*.tsx"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "react": "^19.3.0",
+    "tailwind-merge": "^3.7.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "typescript": "^6.0.3"
+  }
+}

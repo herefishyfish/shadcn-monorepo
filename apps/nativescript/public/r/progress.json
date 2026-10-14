@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "progress",
+  "title": "Progress",
+  "description": "Progress for NativeScript (MasonKit).",
+  "registryDependencies": [
+    "@ns/utils"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/progress.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nfunction Progress({ className, value = 0, ...props }: React.ComponentProps<'div'> & { value?: number }) {\n  return (\n    <div className={cn('h-2 w-full overflow-hidden rounded-full bg-primary/20', className)} {...props}>\n      <div\n        className=\"h-full rounded-full bg-primary\"\n        style={{ width: `${Math.min(100, Math.max(0, value))}%` }}\n      />\n    </div>\n  );\n}\n\nexport { Progress };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

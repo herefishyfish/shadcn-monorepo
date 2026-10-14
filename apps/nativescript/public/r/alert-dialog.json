@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "alert-dialog",
+  "title": "Alert Dialog",
+  "description": "Alert Dialog for NativeScript (MasonKit).",
+  "registryDependencies": [
+    "@ns/utils",
+    "@ns/slot",
+    "@ns/overlay",
+    "@ns/button",
+    "@ns/dialog"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/alert-dialog.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport { Slot } from '@/lib/slot';\nimport { Portal } from '@/components/ui/overlay';\nimport { buttonVariants } from '@/components/ui/button';\nimport {\n  Dialog,\n  DialogDescription,\n  DialogFooter,\n  DialogHeader,\n  DialogPanel,\n  DialogTitle,\n  DialogTrigger,\n  useDialog,\n} from '@/components/ui/dialog';\n\n// A Dialog that only an action or Cancel closes: no close button, and taps on\n// the backdrop (or Android's back button) are ignored.\nconst AlertDialog = Dialog;\nconst AlertDialogTrigger = DialogTrigger;\nconst AlertDialogHeader = DialogHeader;\nconst AlertDialogFooter = DialogFooter;\nconst AlertDialogTitle = DialogTitle;\nconst AlertDialogDescription = DialogDescription;\n\nfunction AlertDialogContent(props: React.ComponentProps<'div'>) {\n  const { open } = useDialog();\n  if (!open) return null;\n  return (\n    <Portal>\n      <DialogPanel showCloseButton={false} dismissible={false} {...props} />\n    </Portal>\n  );\n}\n\ntype ActionProps = React.ComponentProps<'button'> & { asChild?: boolean };\n\nfunction AlertDialogAction({ className, onClick, asChild, ...props }: ActionProps) {\n  const { setOpen } = useDialog();\n  const Comp: any = asChild ? Slot : 'button';\n  return (\n    <Comp\n      className={cn(buttonVariants(), className)}\n      onClick={(event: any) => {\n        onClick?.(event);\n        setOpen(false);\n      }}\n      {...props}\n    />\n  );\n}\n\nfunction AlertDialogCancel({ className, onClick, asChild, ...props }: ActionProps) {\n  const { setOpen } = useDialog();\n  const Comp: any = asChild ? Slot : 'button';\n  return (\n    <Comp\n      className={cn(buttonVariants({ variant: 'outline' }), className)}\n      onClick={(event: any) => {\n        onClick?.(event);\n        setOpen(false);\n      }}\n      {...props}\n    />\n  );\n}\n\nexport {\n  AlertDialog,\n  AlertDialogTrigger,\n  AlertDialogContent,\n  AlertDialogHeader,\n  AlertDialogFooter,\n  AlertDialogTitle,\n  AlertDialogDescription,\n  AlertDialogAction,\n  AlertDialogCancel,\n};\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

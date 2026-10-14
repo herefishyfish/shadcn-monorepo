@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "skeleton",
+  "title": "Skeleton",
+  "description": "Skeleton for NativeScript (MasonKit).",
+  "registryDependencies": [
+    "@ns/utils"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/skeleton.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nfunction Skeleton({ className, ...props }: React.ComponentProps<'div'>) {\n  return <div className={cn('animate-pulse rounded-md bg-accent', className)} {...props} />;\n}\n\nexport { Skeleton };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

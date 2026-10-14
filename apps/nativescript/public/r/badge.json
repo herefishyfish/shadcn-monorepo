@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "badge",
+  "title": "Badge",
+  "description": "Badge for NativeScript (MasonKit).",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "@ns/utils"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/badge.tsx",
+      "content": "import * as React from 'react';\nimport { cva, type VariantProps } from 'class-variance-authority';\nimport { cn } from '@/lib/utils';\n\nconst badgeVariants = cva('shrink-0 rounded-md border px-2 py-0.5 text-xs font-medium', {\n  variants: {\n    variant: {\n      default: 'border-transparent bg-primary text-primary-foreground',\n      secondary: 'border-transparent bg-secondary text-secondary-foreground',\n      destructive: 'border-transparent bg-destructive text-white',\n      outline: 'border-border text-foreground',\n    },\n  },\n  defaultVariants: {\n    variant: 'default',\n  },\n});\n\nfunction Badge({\n  className,\n  variant,\n  ...props\n}: React.ComponentProps<'span'> & VariantProps<typeof badgeVariants>) {\n  return <span className={cn(badgeVariants({ variant }), className)} {...props} />;\n}\n\nexport { Badge, badgeVariants };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

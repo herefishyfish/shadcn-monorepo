@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "types": ["vite/client"],
+    "paths": {
+      "@repo/ui/catalog": ["../../packages/ui/src/catalog.ts"],
+      "@repo/ui/views/*": ["../../packages/ui/src/views/*"],
+      "@repo/ui/lib/*": ["../../packages/ui/src/lib/*"],
+      "@repo/ui/hooks/*": ["../../packages/ui/src/hooks/*"],
+      "@repo/ui/*": ["../../packages/ui/src/components/ui/*"]
+    }
+  },
+  "include": ["src", "../../packages/ui/src/jsx.d.ts"]
+}

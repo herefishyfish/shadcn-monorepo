@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sonner",
+  "title": "Sonner",
+  "description": "Sonner for NativeScript (MasonKit).",
+  "registryDependencies": [
+    "@ns/utils",
+    "@ns/overlay"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/sonner.tsx",
+      "content": "import * as React from 'react';\nimport type { View } from '@nativescript/core';\nimport { cn } from '@/lib/utils';\nimport { Portal, useEnter } from '@/components/ui/overlay';\n\n/*\n * Sonner's API: render <Toaster /> once per screen, then call\n * `toast('Saved')`, `toast.success(...)` or `toast.error(...)` from anywhere.\n */\n\ntype ToastOptions = {\n  description?: React.ReactNode;\n  duration?: number;\n  action?: { label: string; onClick: () => void };\n};\ntype ToastData = ToastOptions & {\n  id: number;\n  title: React.ReactNode;\n  type: 'default' | 'success' | 'error';\n};\n\nlet toasts: ToastData[] = [];\nlet nextId = 1;\nconst listeners = new Set<() => void>();\nconst emit = () => listeners.forEach((listener) => listener());\n\nfunction dismiss(id?: number) {\n  toasts = id === undefined ? [] : toasts.filter((t) => t.id !== id);\n  emit();\n}\n\nfunction show(type: ToastData['type'], title: React.ReactNode, options: ToastOptions = {}) {\n  const id = nextId++;\n  toasts = [...toasts.slice(-2), { id, title, type, ...options }];\n  emit();\n  setTimeout(() => dismiss(id), options.duration ?? 4000);\n  return id;\n}\n\nconst toast = Object.assign(\n  (title: React.ReactNode, options?: ToastOptions) => show('default', title, options),\n  {\n    success: (title: React.ReactNode, options?: ToastOptions) => show('success', title, options),\n    error: (title: React.ReactNode, options?: ToastOptions) => show('error', title, options),\n    dismiss,\n  },\n);\n\nconst icons = { default: null, success: '✓', error: '!' };\n\nfunction ToastCard({ data }: { data: ToastData }) {\n  const ref = React.useRef<View>(null);\n  useEnter(ref, { opacity: 0, y: 24 });\n  return (\n    <div\n      ref={ref as never}\n      className=\"flex flex-row items-center gap-3 rounded-lg border border-border bg-popover p-4\"\n    >\n      {icons[data.type] && (\n        <span\n          className={cn(\n            'text-sm font-bold',\n            data.type === 'error' ? 'text-destructive' : 'text-popover-foreground',\n          )}\n        >\n          {icons[data.type]}\n        </span>\n      )}\n      <div className=\"flex flex-1 flex-col gap-0.5\">\n        <span className=\"text-sm font-medium text-popover-foreground\">{data.title}</span>\n        {data.description && (\n          <span className=\"text-sm text-muted-foreground\">{data.description}</span>\n        )}\n      </div>\n      {data.action && (\n        <button\n          className=\"h-8 rounded-md bg-primary px-3 text-xs font-medium text-primary-foreground\"\n          onClick={() => {\n            data.action!.onClick();\n            dismiss(data.id);\n          }}\n        >\n          {data.action.label}\n        </button>\n      )}\n    </div>\n  );\n}\n\nfunction Toaster() {\n  const list = React.useSyncExternalStore(\n    (listener) => {\n      listeners.add(listener);\n      return () => listeners.delete(listener);\n    },\n    () => toasts,\n  );\n  return (\n    <Portal toast>\n      {list.map((data) => (\n        <ToastCard key={data.id} data={data} />\n      ))}\n    </Portal>\n  );\n}\n\nexport { Toaster, toast };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "slot",
+  "title": "Slot",
+  "description": "Slot for NativeScript (MasonKit).",
+  "registryDependencies": [
+    "@ns/utils"
+  ],
+  "files": [
+    {
+      "path": "src/lib/slot.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\n/**\n * Radix's `Slot`, for `asChild`: merges its props into its only child instead\n * of rendering an element of its own. Class names are joined and `onClick`\n * handlers both run.\n */\nexport function Slot({ children, ...props }: { children?: React.ReactNode; [prop: string]: any }) {\n  if (!React.isValidElement(children)) return null;\n  const child = children as React.ReactElement<any>;\n  return React.cloneElement(child, {\n    ...props,\n    ...child.props,\n    className: cn(props.className, child.props.className),\n    onClick: (event: unknown) => {\n      child.props.onClick?.(event);\n      props.onClick?.(event);\n    },\n  });\n}\n",
+      "type": "registry:lib"
+    }
+  ],
+  "type": "registry:lib"
+}

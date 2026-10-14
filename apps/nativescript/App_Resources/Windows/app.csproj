@@ -1,0 +1,18 @@
+<Project>
+  <PropertyGroup>
+    <AppDisplayName>NSUniversalShadcn</AppDisplayName>
+    <AppDescription>Built with NativeScript on Windows.</AppDescription>
+    <ApplicationManifest Condition="'$(ApplicationManifest)' == '' and Exists('$(MSBuildThisFileDirectory)app.manifest')">$(MSBuildThisFileDirectory)app.manifest</ApplicationManifest>
+    <!-- This app's project name is nativescript, so the managed assembly would also be
+         nativescript.dll and collide with the devtools runtime DLL (NETSDK1152). -->
+    <AssemblyName>NSUniversalShadcn</AssemblyName>
+  </PropertyGroup>
+
+  <!-- ponytail: ns run writes the debug manifest Executable as the project name. The apphost still loads NSUniversalShadcn.dll. Drop the copy if the CLI uses AssemblyName. -->
+  <Target Name="AliasWindowsExe" AfterTargets="Build">
+    <Copy SourceFiles="$(TargetDir)$(AssemblyName).exe"
+          DestinationFiles="$(TargetDir)$(MSBuildProjectName).exe"
+          SkipUnchangedFiles="true"
+          Condition="'$(AssemblyName)' != '$(MSBuildProjectName)' and Exists('$(TargetDir)$(AssemblyName).exe')" />
+  </Target>
+</Project>

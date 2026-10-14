@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button-group",
+  "title": "Button Group",
+  "description": "Button Group for NativeScript (MasonKit).",
+  "registryDependencies": [
+    "@ns/utils"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/button-group.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\n// Squares the inner corners of the buttons it holds (shadcn does this with\n// `[&>*]` selectors, which NativeScript can't match).\nfunction ButtonGroup({\n  className,\n  orientation = 'horizontal',\n  children,\n  ...props\n}: React.ComponentProps<'div'> & { orientation?: 'horizontal' | 'vertical' }) {\n  const items = React.Children.toArray(children).filter(React.isValidElement) as React.ReactElement<any>[];\n  const horizontal = orientation === 'horizontal';\n  return (\n    <div\n      role=\"group\"\n      className={cn('flex self-start', horizontal ? 'flex-row items-stretch' : 'flex-col', className)}\n      {...props}\n    >\n      {items.map((child, index) => {\n        const first = index === 0;\n        const last = index === items.length - 1;\n        return React.cloneElement(child, {\n          className: cn(\n            child.props.className,\n            horizontal\n              ? cn(!first && 'rounded-l-none border-l-0', !last && 'rounded-r-none')\n              : cn(!first && 'rounded-t-none border-t-0', !last && 'rounded-b-none'),\n          ),\n        });\n      })}\n    </div>\n  );\n}\n\nfunction ButtonGroupText({ className, ...props }: React.ComponentProps<'span'>) {\n  return (\n    <span\n      className={cn('flex flex-row items-center rounded-md border border-border bg-muted px-4 text-sm font-medium text-foreground', className)}\n      {...props}\n    />\n  );\n}\n\nfunction ButtonGroupSeparator({\n  className,\n  orientation = 'vertical',\n  ...props\n}: React.ComponentProps<'div'> & { orientation?: 'horizontal' | 'vertical' }) {\n  return (\n    <div\n      className={cn('shrink-0 bg-input', orientation === 'vertical' ? 'w-[1] self-stretch' : 'h-[1] w-full', className)}\n      {...props}\n    />\n  );\n}\n\nexport { ButtonGroup, ButtonGroupSeparator, ButtonGroupText };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

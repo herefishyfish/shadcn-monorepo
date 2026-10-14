@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "collapsible",
+  "title": "Collapsible",
+  "description": "Collapsible for NativeScript (MasonKit).",
+  "registryDependencies": [
+    "@ns/utils",
+    "@ns/slot",
+    "@ns/use-controllable"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/collapsible.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport { Slot } from '@/lib/slot';\nimport { useControllable } from '@/hooks/use-controllable';\n\nconst CollapsibleContext = React.createContext<{\n  open: boolean;\n  setOpen: (open: boolean) => void;\n} | null>(null);\n\nfunction Collapsible({\n  className,\n  open,\n  defaultOpen = false,\n  onOpenChange,\n  ...props\n}: React.ComponentProps<'div'> & {\n  open?: boolean;\n  defaultOpen?: boolean;\n  onOpenChange?: (open: boolean) => void;\n}) {\n  const [isOpen, setOpen] = useControllable(open, defaultOpen, onOpenChange);\n  return (\n    <CollapsibleContext.Provider value={{ open: isOpen, setOpen }}>\n      <div className={cn('flex flex-col', className)} {...props} />\n    </CollapsibleContext.Provider>\n  );\n}\n\nfunction CollapsibleTrigger({ asChild, ...props }: React.ComponentProps<'div'> & { asChild?: boolean }) {\n  const { open, setOpen } = React.useContext(CollapsibleContext)!;\n  const Comp: any = asChild ? Slot : 'div';\n  return <Comp {...props} onClick={() => setOpen(!open)} />;\n}\n\nfunction CollapsibleContent({ className, ...props }: React.ComponentProps<'div'>) {\n  const { open } = React.useContext(CollapsibleContext)!;\n  if (!open) return null;\n  return <div className={cn('flex flex-col', className)} {...props} />;\n}\n\nexport { Collapsible, CollapsibleTrigger, CollapsibleContent };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

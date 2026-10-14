@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "kbd",
+  "title": "Kbd",
+  "description": "Kbd for NativeScript (MasonKit).",
+  "registryDependencies": [
+    "@ns/utils"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/kbd.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nfunction Kbd({ className, ...props }: React.ComponentProps<'span'>) {\n  return <span className={cn('h-5 min-w-5 self-start rounded-sm bg-muted px-1 text-center text-xs font-medium text-muted-foreground', className)} {...props} />;\n}\n\nfunction KbdGroup({ className, ...props }: React.ComponentProps<'div'>) {\n  return <div className={cn('flex flex-row items-center gap-1', className)} {...props} />;\n}\n\nexport { Kbd, KbdGroup };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

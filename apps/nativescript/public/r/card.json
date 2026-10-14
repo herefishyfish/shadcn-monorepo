@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "card",
+  "title": "Card",
+  "description": "Card for NativeScript (MasonKit).",
+  "registryDependencies": [
+    "@ns/utils"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/card.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\nfunction Card({ className, ...props }: React.ComponentProps<'div'>) {\n  return <div className={cn('flex flex-col gap-6 rounded-xl border border-border bg-card py-6 text-card-foreground', className)} {...props} />;\n}\n\nfunction CardHeader({ className, ...props }: React.ComponentProps<'div'>) {\n  return <div className={cn('flex flex-col gap-1.5 px-6', className)} {...props} />;\n}\n\nfunction CardTitle({ className, ...props }: React.ComponentProps<'h3'>) {\n  return <h3 className={cn('text-base font-semibold text-card-foreground', className)} {...props} />;\n}\n\nfunction CardDescription({ className, ...props }: React.ComponentProps<'p'>) {\n  return <p className={cn('text-sm text-muted-foreground', className)} {...props} />;\n}\n\nfunction CardContent({ className, ...props }: React.ComponentProps<'div'>) {\n  return <div className={cn('flex flex-col px-6', className)} {...props} />;\n}\n\nfunction CardFooter({ className, ...props }: React.ComponentProps<'div'>) {\n  return <div className={cn('flex flex-row items-center px-6', className)} {...props} />;\n}\n\nexport { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

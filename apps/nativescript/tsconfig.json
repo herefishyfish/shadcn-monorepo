@@ -1,0 +1,53 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "lib": [
+      "esnext",
+      "WebWorker"
+    ],
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "sourceMap": true,
+    "noEmitHelpers": true,
+    "importHelpers": true,
+    "paths": {
+      "~/*": [
+        "./src/*"
+      ],
+      "@/*": [
+        "./src/*"
+      ],
+      "@repo/ui/catalog": [
+        "../../packages/ui/src/catalog.ts"
+      ],
+      "@repo/ui/views/*": [
+        "../../packages/ui/src/views/*"
+      ],
+      "@repo/ui/lib/*": [
+        "../../packages/ui/src/lib/*"
+      ],
+      "@repo/ui/hooks/*": [
+        "../../packages/ui/src/hooks/*"
+      ],
+      "@repo/ui/*": [
+        "../../packages/ui/src/components/ui/*"
+      ]
+    },
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "src",
+    "types"
+  ],
+  "exclude": [
+    "node_modules",
+    "platforms"
+  ]
+}

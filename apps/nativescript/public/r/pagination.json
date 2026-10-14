@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pagination",
+  "title": "Pagination",
+  "description": "Pagination for NativeScript (MasonKit).",
+  "registryDependencies": [
+    "@ns/utils",
+    "@ns/button"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/pagination.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport { buttonVariants } from '@/components/ui/button';\n\nfunction Pagination({ className, ...props }: React.ComponentProps<'nav'>) {\n  return <nav className={cn('flex w-full flex-row justify-center', className)} {...props} />;\n}\n\nfunction PaginationContent({ className, ...props }: React.ComponentProps<'div'>) {\n  return <div className={cn('flex flex-row items-center gap-1', className)} {...props} />;\n}\n\nfunction PaginationItem({ className, ...props }: React.ComponentProps<'div'>) {\n  return <div className={cn('flex', className)} {...props} />;\n}\n\nfunction PaginationLink({\n  className,\n  isActive,\n  size = 'icon',\n  ...props\n}: React.ComponentProps<'button'> & { isActive?: boolean; size?: 'default' | 'icon' }) {\n  return (\n    <button\n      className={cn(buttonVariants({ variant: isActive ? 'outline' : 'ghost', size }), className)}\n      {...props}\n    />\n  );\n}\n\nfunction PaginationPrevious({ className, ...props }: React.ComponentProps<'button'>) {\n  return (\n    <PaginationLink size=\"default\" className={cn('gap-1 px-2.5', className)} {...props}>\n      ‹ Previous\n    </PaginationLink>\n  );\n}\n\nfunction PaginationNext({ className, ...props }: React.ComponentProps<'button'>) {\n  return (\n    <PaginationLink size=\"default\" className={cn('gap-1 px-2.5', className)} {...props}>\n      Next ›\n    </PaginationLink>\n  );\n}\n\nfunction PaginationEllipsis({ className, ...props }: React.ComponentProps<'span'>) {\n  return (\n    <span className={cn('size-9 text-center text-sm text-muted-foreground', className)} {...props}>\n      …\n    </span>\n  );\n}\n\nexport {\n  Pagination,\n  PaginationContent,\n  PaginationEllipsis,\n  PaginationItem,\n  PaginationLink,\n  PaginationNext,\n  PaginationPrevious,\n};\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

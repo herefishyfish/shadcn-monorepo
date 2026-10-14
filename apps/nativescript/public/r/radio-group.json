@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "radio-group",
+  "title": "Radio Group",
+  "description": "Radio Group for NativeScript (MasonKit).",
+  "registryDependencies": [
+    "@ns/utils",
+    "@ns/use-controllable",
+    "@ns/label"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/radio-group.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport { useControllable } from '@/hooks/use-controllable';\nimport { useLabelTarget } from '@/components/ui/label';\n\nconst RadioGroupContext = React.createContext<{\n  value: string;\n  setValue: (value: string) => void;\n} | null>(null);\n\nfunction RadioGroup({\n  className,\n  value,\n  defaultValue = '',\n  onValueChange,\n  ...props\n}: Omit<React.ComponentProps<'div'>, 'defaultValue'> & {\n  value?: string;\n  defaultValue?: string;\n  onValueChange?: (value: string) => void;\n}) {\n  const [current, setValue] = useControllable(value, defaultValue, onValueChange);\n  return (\n    <RadioGroupContext.Provider value={{ value: current, setValue }}>\n      <div role=\"radiogroup\" className={cn('flex flex-col gap-3', className)} {...props} />\n    </RadioGroupContext.Provider>\n  );\n}\n\nfunction RadioGroupItem({\n  className,\n  value,\n  disabled,\n  id,\n  ...props\n}: React.ComponentProps<'div'> & { value: string; disabled?: boolean }) {\n  const group = React.useContext(RadioGroupContext)!;\n  const on = group.value === value;\n  const select = () => !disabled && group.setValue(value);\n  useLabelTarget(id, select);\n  // The circle is 16dp; the padding around it widens the target. Pair it with\n  // a Label htmlFor for a bigger one.\n  return (\n    <div className=\"flex p-1\" onClick={select}>\n      <div\n        className={cn(\n          'flex size-4 shrink-0 items-center justify-center rounded-full border',\n          on ? 'border-primary' : 'border-input dark:bg-input/30',\n          disabled && 'opacity-50',\n          className,\n        )}\n        {...props}\n      >\n        {on && <div className=\"size-2 rounded-full bg-primary\" />}\n      </div>\n    </div>\n  );\n}\n\nexport { RadioGroup, RadioGroupItem };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

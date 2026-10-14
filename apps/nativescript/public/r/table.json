@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "table",
+  "title": "Table",
+  "description": "Table for NativeScript (MasonKit).",
+  "registryDependencies": [
+    "@ns/utils"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/table.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\n// Flex rows, not a native table: give columns widths with basis-*/flex-* on cells.\n\nfunction Table({ className, ...props }: React.ComponentProps<'div'>) {\n  return <div className={cn('flex w-full flex-col', className)} {...props} />;\n}\n\nfunction TableHeader({ className, ...props }: React.ComponentProps<'div'>) {\n  return <div className={cn('flex flex-col border-b border-border', className)} {...props} />;\n}\n\nfunction TableBody({ className, ...props }: React.ComponentProps<'div'>) {\n  return <div className={cn('flex flex-col', className)} {...props} />;\n}\n\nfunction TableFooter({ className, ...props }: React.ComponentProps<'div'>) {\n  return <div className={cn('flex flex-col border-t border-border bg-muted/50', className)} {...props} />;\n}\n\nfunction TableRow({ className, ...props }: React.ComponentProps<'div'>) {\n  return <div className={cn('flex flex-row items-center border-b border-border', className)} {...props} />;\n}\n\nfunction TableHead({ className, ...props }: React.ComponentProps<'span'>) {\n  return <span className={cn('flex-1 px-2 py-2.5 text-sm font-medium text-foreground', className)} {...props} />;\n}\n\nfunction TableCell({ className, ...props }: React.ComponentProps<'span'>) {\n  return <span className={cn('flex-1 p-2 text-sm text-foreground', className)} {...props} />;\n}\n\nfunction TableCaption({ className, ...props }: React.ComponentProps<'p'>) {\n  return <p className={cn('mt-4 text-center text-sm text-muted-foreground', className)} {...props} />;\n}\n\nexport { Table, TableHeader, TableBody, TableFooter, TableRow, TableHead, TableCell, TableCaption };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

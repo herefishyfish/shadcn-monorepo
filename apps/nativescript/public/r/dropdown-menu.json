@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dropdown-menu",
+  "title": "Dropdown Menu",
+  "description": "Dropdown Menu for NativeScript (MasonKit).",
+  "registryDependencies": [
+    "@ns/utils",
+    "@ns/overlay",
+    "@ns/popover"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/dropdown-menu.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport { Portal } from '@/components/ui/overlay';\nimport { Popover, PopoverPanel, PopoverTrigger, usePopover } from '@/components/ui/popover';\n\nconst DropdownMenu = Popover;\nconst DropdownMenuTrigger = PopoverTrigger;\n\nfunction DropdownMenuContent({ className, ...props }: React.ComponentProps<'div'>) {\n  const { open } = usePopover();\n  if (!open) return null;\n  return (\n    <Portal>\n      <PopoverPanel className={cn('min-w-32 p-1', className)} {...props} />\n    </Portal>\n  );\n}\n\nfunction DropdownMenuItem({\n  className,\n  variant = 'default',\n  disabled,\n  onSelect,\n  children,\n  ...props\n}: React.ComponentProps<'div'> & {\n  variant?: 'default' | 'destructive';\n  disabled?: boolean;\n  onSelect?: () => void;\n}) {\n  const { setOpen } = usePopover();\n  return (\n    <div\n      className={cn(\n        'flex flex-row items-center gap-2 rounded-sm px-2 py-1.5 hover:bg-accent active:bg-accent',\n        disabled && 'opacity-50',\n        className,\n      )}\n      onClick={() => {\n        if (disabled) return;\n        onSelect?.();\n        setOpen(false);\n      }}\n      {...props}\n    >\n      {/* Text gets a text element; elements (a shortcut, say) sit beside it. */}\n      {React.Children.map(children, (child) =>\n        typeof child === 'string' || typeof child === 'number' ? (\n          <span\n            className={cn(\n              'flex-1 text-sm',\n              variant === 'destructive' ? 'text-destructive' : 'text-popover-foreground',\n            )}\n          >\n            {child}\n          </span>\n        ) : (\n          child\n        ),\n      )}\n    </div>\n  );\n}\n\nfunction DropdownMenuLabel({ className, ...props }: React.ComponentProps<'span'>) {\n  return (\n    <span className={cn('px-2 py-1.5 text-sm font-medium text-foreground', className)} {...props} />\n  );\n}\n\nfunction DropdownMenuSeparator({ className, ...props }: React.ComponentProps<'div'>) {\n  return <div className={cn('-mx-1 my-1 h-[1] bg-border', className)} {...props} />;\n}\n\nfunction DropdownMenuShortcut({ className, ...props }: React.ComponentProps<'span'>) {\n  return <span className={cn('text-xs text-muted-foreground', className)} {...props} />;\n}\n\nexport {\n  DropdownMenu,\n  DropdownMenuTrigger,\n  DropdownMenuContent,\n  DropdownMenuItem,\n  DropdownMenuLabel,\n  DropdownMenuSeparator,\n  DropdownMenuShortcut,\n};\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

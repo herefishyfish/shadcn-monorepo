@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "field",
+  "title": "Field",
+  "description": "Field for NativeScript (MasonKit).",
+  "registryDependencies": [
+    "@ns/utils",
+    "@ns/label"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/field.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport { Label } from '@/components/ui/label';\n\nfunction FieldSet({ className, ...props }: React.ComponentProps<'div'>) {\n  return <div className={cn('flex flex-col gap-6', className)} {...props} />;\n}\n\nfunction FieldLegend({ className, ...props }: React.ComponentProps<'span'>) {\n  return <span className={cn('mb-3 text-base font-medium text-foreground', className)} {...props} />;\n}\n\nfunction FieldGroup({ className, ...props }: React.ComponentProps<'div'>) {\n  return <div className={cn('flex w-full flex-col gap-7', className)} {...props} />;\n}\n\nfunction Field({\n  className,\n  orientation = 'vertical',\n  ...props\n}: React.ComponentProps<'div'> & { orientation?: 'vertical' | 'horizontal' }) {\n  return (\n    <div\n      role=\"group\"\n      className={cn(\n        'flex w-full gap-3',\n        orientation === 'vertical' ? 'flex-col' : 'flex-row items-center',\n        className,\n      )}\n      {...props}\n    />\n  );\n}\n\nfunction FieldContent({ className, ...props }: React.ComponentProps<'div'>) {\n  return <div className={cn('flex flex-1 flex-col gap-1.5', className)} {...props} />;\n}\n\nfunction FieldLabel(props: React.ComponentProps<typeof Label>) {\n  return <Label {...props} />;\n}\n\nfunction FieldTitle({ className, ...props }: React.ComponentProps<'span'>) {\n  return <span className={cn('text-sm font-medium text-foreground', className)} {...props} />;\n}\n\nfunction FieldDescription({ className, ...props }: React.ComponentProps<'p'>) {\n  return <p className={cn('text-sm text-muted-foreground', className)} {...props} />;\n}\n\nfunction FieldSeparator({ className, ...props }: React.ComponentProps<'div'>) {\n  return <div className={cn('h-[1] w-full bg-border', className)} {...props} />;\n}\n\n/** Shows `children`, or the first of `errors` that has a message. */\nfunction FieldError({\n  className,\n  children,\n  errors,\n  ...props\n}: React.ComponentProps<'p'> & { errors?: ({ message?: string } | undefined)[] }) {\n  const content = children ?? errors?.find((error) => error?.message)?.message;\n  if (!content) return null;\n  return (\n    <p role=\"alert\" className={cn('text-sm text-destructive', className)} {...props}>\n      {content}\n    </p>\n  );\n}\n\nexport {\n  Field,\n  FieldContent,\n  FieldDescription,\n  FieldError,\n  FieldGroup,\n  FieldLabel,\n  FieldLegend,\n  FieldSeparator,\n  FieldSet,\n  FieldTitle,\n};\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

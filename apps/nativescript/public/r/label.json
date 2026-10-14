@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "label",
+  "title": "Label",
+  "description": "Label for NativeScript (MasonKit).",
+  "registryDependencies": [
+    "@ns/utils"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/label.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\n/*\n * `htmlFor` works as on the web: tapping the label activates the control with\n * that `id` (toggles a Checkbox or Switch, picks a RadioGroupItem, focuses an\n * Input). NativeScript has no label association, so controls register here.\n */\nconst targets = new Map<string, () => void>();\n\n/** Lets a Label with `htmlFor={id}` activate this control. */\nfunction useLabelTarget(id: string | undefined, activate: () => void) {\n  const latest = React.useRef(activate);\n  latest.current = activate;\n  React.useEffect(() => {\n    if (!id) return;\n    const run = () => latest.current();\n    targets.set(id, run);\n    return () => {\n      if (targets.get(id) === run) targets.delete(id);\n    };\n  }, [id]);\n}\n\nfunction Label({ className, htmlFor, onClick, ...props }: React.ComponentProps<'label'>) {\n  return (\n    <label\n      className={cn('text-sm font-medium text-foreground', className)}\n      onClick={(event: any) => {\n        onClick?.(event);\n        if (htmlFor) targets.get(htmlFor)?.();\n      }}\n      {...props}\n    />\n  );\n}\n\nexport { Label, useLabelTarget };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

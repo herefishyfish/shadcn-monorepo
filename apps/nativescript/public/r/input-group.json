@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "input-group",
+  "title": "Input Group",
+  "description": "Input Group for NativeScript (MasonKit).",
+  "registryDependencies": [
+    "@ns/utils",
+    "@ns/button",
+    "@ns/input"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/input-group.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport { Button } from '@/components/ui/button';\nimport { Input } from '@/components/ui/input';\n\nfunction InputGroup({ className, ...props }: React.ComponentProps<'div'>) {\n  return (\n    <div\n      role=\"group\"\n      className={cn(\n        'flex h-9 w-full flex-row items-center rounded-md border border-input dark:bg-input/30',\n        className,\n      )}\n      {...props}\n    />\n  );\n}\n\nfunction InputGroupInput({ className, ...props }: React.ComponentProps<typeof Input>) {\n  return (\n    <Input\n      className={cn('h-full flex-1 rounded-none border-0 bg-transparent dark:bg-transparent', className)}\n      {...props}\n    />\n  );\n}\n\nfunction InputGroupAddon({\n  className,\n  align = 'inline-start',\n  ...props\n}: React.ComponentProps<'div'> & { align?: 'inline-start' | 'inline-end' }) {\n  return (\n    <div\n      className={cn(\n        'flex h-full flex-row items-center gap-2',\n        align === 'inline-start' ? 'order-first pl-3' : 'order-last pr-2',\n        className,\n      )}\n      {...props}\n    />\n  );\n}\n\nfunction InputGroupText({ className, ...props }: React.ComponentProps<'span'>) {\n  return <span className={cn('text-sm text-muted-foreground', className)} {...props} />;\n}\n\nfunction InputGroupButton({ className, size, variant = 'ghost', ...props }: React.ComponentProps<typeof Button>) {\n  return <Button variant={variant} className={cn('h-6 gap-1 rounded-sm px-2', className)} {...props} />;\n}\n\nexport { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput, InputGroupText };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

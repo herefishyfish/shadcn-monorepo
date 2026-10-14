@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "input",
+  "title": "Input",
+  "description": "Input for NativeScript (MasonKit).",
+  "registryDependencies": [
+    "@ns/utils",
+    "@ns/label"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/input.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport { useLabelTarget } from '@/components/ui/label';\n\n/**\n * MasonKit's <input> fires `input` as you type, while the renderer maps\n * `onChange` to core's `textChange`, so `onChange` is wired to `input` here.\n * Read the text from `event.target.value`, as on the web. `value` and\n * `defaultValue` behave as on the web too.\n */\nfunction Input({\n  className,\n  onChange,\n  ref,\n  ...props\n}: Omit<React.ComponentProps<'input'>, 'onChange'> & {\n  onChange?: (event: { target: { value: string } }) => void;\n}) {\n  const native = React.useRef<any>(null);\n  useLabelTarget(props.id, () => native.current?.focus?.());\n  return (\n    <input\n      ref={(view: any) => {\n        native.current = view;\n        if (typeof ref === 'function') ref(view);\n        else if (ref) (ref as React.RefObject<any>).current = view;\n      }}\n      className={cn(\n        'h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base text-foreground placeholder:text-muted-foreground focus:border-ring dark:bg-input/30',\n        className,\n      )}\n      onInput={onChange as any}\n      {...props}\n    />\n  );\n}\n\nexport { Input };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

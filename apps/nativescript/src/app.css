@@ -1,0 +1,91 @@
+@import '../../../packages/ui/src/theme.css';
+@import 'tailwindcss/theme' layer(theme);
+@import 'tailwindcss/utilities' layer(utilities);
+@source '../../../packages/ui/src';
+
+/*
+ * Theme and utilities only: MasonKit's `View.preflight` (src/app.ts) does the
+ * reset natively. Tailwind's CSS preflight must stay out; its
+ * `[hidden] { display: none }` matches every view (core defines `hidden` on
+ * all of them, defaulting to false), which hides the whole Mason tree.
+ */
+
+/*
+ * NativeScript puts platform, device and appearance classes on the root view
+ * (.ns-ios, .ns-android, .ns-windows, .ns-phone, .ns-tablet, .ns-dark, ...).
+ * These variants expose them to Tailwind: `dark:bg-slate-900`, `ios:pt-2`, ...
+ *
+ * `@media` based variants (sm:, md:, ...) are not available, so build
+ * responsive layouts from intrinsic sizing instead: flex-wrap + basis-*,
+ * grid-cols-[repeat(auto-fill,minmax(220,1fr))], w-full + max-w-*.
+ */
+@custom-variant dark (.ns-dark &);
+@custom-variant ios (.ns-ios &);
+@custom-variant android (.ns-android &);
+@custom-variant windows (.ns-windows &);
+@custom-variant phone (.ns-phone &);
+@custom-variant tablet (.ns-tablet &);
+
+/*
+ * Plain pseudo-classes, so shadcn class strings work as written: Tailwind's
+ * `hover:` is wrapped in `@media (hover: hover)`, and native views have no
+ * `:focus-visible`.
+ */
+@custom-variant hover (&:hover);
+@custom-variant focus-visible (&:focus);
+
+/*
+ * shadcn/ui theme (neutral), exactly as ui.shadcn.com generates it, so you can
+ * paste another one over it. postcss-native-colors.mjs converts it for
+ * NativeScript at build time: `oklch()` becomes `rgb()`, and `.dark` becomes
+ * `.ns-dark`, the class NativeScript sets on the root view. `:root` becomes
+ * `.ns-root, .ns-modal`. `--radius` is unitless dp, not `rem`.
+ */
+
+Page {
+  background-color: var(--background);
+  color: var(--foreground);
+  /* iOS status bar text: dark on the light theme, white on the dark one. */
+  status-bar-style: dark;
+}
+
+.ns-dark Page {
+  status-bar-style: light;
+}
+
+/*
+ * Tailwind's animate-* utilities are `animation: var(--animate-*)`, which
+ * NativeScript can't expand, so they compile to nothing. Spelled out instead.
+ */
+@keyframes ns-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes ns-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@utility animate-pulse {
+  animation-name: ns-pulse;
+  animation-duration: 2s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+  animation-iteration-count: infinite;
+}
+
+@utility animate-spin {
+  animation-name: ns-spin;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}

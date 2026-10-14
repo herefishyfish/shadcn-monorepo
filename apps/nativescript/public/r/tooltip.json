@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tooltip",
+  "title": "Tooltip",
+  "description": "Tooltip for NativeScript (MasonKit).",
+  "registryDependencies": [
+    "@ns/utils",
+    "@ns/overlay",
+    "@ns/popover"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/tooltip.tsx",
+      "content": "import * as React from 'react';\nimport type { View } from '@nativescript/core';\nimport { cn } from '@/lib/utils';\nimport { Portal, useAnchorPosition, useEnter } from '@/components/ui/overlay';\nimport { Popover, usePopover } from '@/components/ui/popover';\n\n/*\n * Opens while the pointer is over the trigger where the platform reports\n * hover (Windows), and on long-press with touch, where it closes on its own\n * after a moment. It renders in the floating layer, so it never covers the\n * trigger and steals the pointer from it.\n */\nfunction TooltipProvider({ children }: { children?: React.ReactNode; delayDuration?: number }) {\n  return <>{children}</>;\n}\n\nconst Tooltip = Popover;\n\nfunction TooltipTrigger({ asChild, children, ...props }: React.ComponentProps<'div'> & { asChild?: boolean }) {\n  const { setOpen, anchor } = usePopover();\n  const handlers = {\n    onMouseEnter: () => setOpen(true),\n    onMouseLeave: () => setOpen(false),\n    onLongPress: () => setOpen(true),\n  };\n  // The handlers go on the child too: a button takes the touch, so the\n  // wrapper (there to be measured) wouldn't see the long-press.\n  const child = React.isValidElement(children)\n    ? React.cloneElement(children as React.ReactElement<any>, handlers)\n    : children;\n  return (\n    <div ref={anchor as never} className=\"flex flex-col self-start\" {...handlers} {...props}>\n      {child}\n    </div>\n  );\n}\n\nfunction TooltipBubble({ className, children, ...props }: React.ComponentProps<'div'>) {\n  const { setOpen, anchor } = usePopover();\n  const ref = React.useRef<View>(null);\n  const { style: position, onPanelLayout } = useAnchorPosition(anchor);\n  useEnter(ref, { opacity: 0, scale: 0.96 });\n  React.useEffect(() => {\n    // Long-press has no \"leave\"; close after a moment. Hover keeps it open.\n    const timer = setTimeout(() => setOpen(false), 3000);\n    return () => clearTimeout(timer);\n  }, []);\n  return (\n    <div\n      ref={ref as never}\n      className={cn('absolute rounded-md bg-primary px-3 py-1.5', !position && 'opacity-0', className)}\n      style={position ? { ...position, minWidth: undefined } : undefined}\n      onLayoutChanged={onPanelLayout}\n      {...props}\n    >\n      <span className=\"text-xs text-primary-foreground\">{children}</span>\n    </div>\n  );\n}\n\nfunction TooltipContent(props: React.ComponentProps<'div'>) {\n  const { open } = usePopover();\n  if (!open) return null;\n  return (\n    <Portal floating>\n      <TooltipBubble {...props} />\n    </Portal>\n  );\n}\n\nexport { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "accordion",
+  "title": "Accordion",
+  "description": "Accordion for NativeScript (MasonKit).",
+  "registryDependencies": [
+    "@ns/utils"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/accordion.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\ntype AccordionContextValue = { isOpen: (value: string) => boolean; toggle: (value: string) => void };\nconst AccordionContext = React.createContext<AccordionContextValue | null>(null);\nconst ItemContext = React.createContext('');\n\nfunction Accordion({\n  className,\n  type = 'single',\n  collapsible = true,\n  defaultValue,\n  ...props\n}: Omit<React.ComponentProps<'div'>, 'defaultValue'> & {\n  type?: 'single' | 'multiple';\n  collapsible?: boolean;\n  defaultValue?: string | string[];\n}) {\n  const [open, setOpen] = React.useState<string[]>(\n    defaultValue === undefined ? [] : ([] as string[]).concat(defaultValue),\n  );\n  const toggle = (value: string) =>\n    setOpen((list) => {\n      if (list.includes(value)) return collapsible || type === 'multiple' ? list.filter((v) => v !== value) : list;\n      return type === 'multiple' ? [...list, value] : [value];\n    });\n  return (\n    <AccordionContext.Provider value={{ isOpen: (value) => open.includes(value), toggle }}>\n      <div className={cn('flex flex-col', className)} {...props} />\n    </AccordionContext.Provider>\n  );\n}\n\nfunction AccordionItem({ className, value, ...props }: React.ComponentProps<'div'> & { value: string }) {\n  return (\n    <ItemContext.Provider value={value}>\n      <div className={cn('flex flex-col border-b border-border', className)} {...props} />\n    </ItemContext.Provider>\n  );\n}\n\nfunction AccordionTrigger({ className, children, ...props }: React.ComponentProps<'div'>) {\n  const accordion = React.useContext(AccordionContext)!;\n  const value = React.useContext(ItemContext);\n  const open = accordion.isOpen(value);\n  return (\n    <div\n      className={cn('flex flex-row items-center justify-between gap-4 py-4', className)}\n      onClick={() => accordion.toggle(value)}\n      {...props}\n    >\n      <span className=\"flex-1 text-sm font-medium text-foreground\">{children}</span>\n      <span className=\"text-xs text-muted-foreground\">{open ? '▴' : '▾'}</span>\n    </div>\n  );\n}\n\nfunction AccordionContent({ className, ...props }: React.ComponentProps<'div'>) {\n  const accordion = React.useContext(AccordionContext)!;\n  const value = React.useContext(ItemContext);\n  if (!accordion.isOpen(value)) return null;\n  return <div className={cn('flex flex-col pb-4 text-sm', className)} {...props} />;\n}\n\nexport { Accordion, AccordionItem, AccordionTrigger, AccordionContent };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

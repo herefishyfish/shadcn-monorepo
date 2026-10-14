@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "scroll-area",
+  "title": "Scroll Area",
+  "description": "Scroll Area for NativeScript (MasonKit).",
+  "registryDependencies": [
+    "@ns/utils"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/scroll-area.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\n/** MasonKit's <scroll>, styled like shadcn's ScrollArea (native scrollbars). */\nfunction ScrollArea({ className, ...props }: React.ComponentProps<'div'>) {\n  return <scroll className={cn('relative', className)} {...(props as any)} />;\n}\n\nexport { ScrollArea };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

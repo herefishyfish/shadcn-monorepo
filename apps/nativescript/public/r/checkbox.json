@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "checkbox",
+  "title": "Checkbox",
+  "description": "Checkbox for NativeScript (MasonKit).",
+  "registryDependencies": [
+    "@ns/utils",
+    "@ns/use-controllable",
+    "@ns/label"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/checkbox.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport { useControllable } from '@/hooks/use-controllable';\nimport { useLabelTarget } from '@/components/ui/label';\n\nfunction Checkbox({\n  className,\n  checked,\n  defaultChecked = false,\n  onCheckedChange,\n  disabled,\n  id,\n  ...props\n}: Omit<React.ComponentProps<'div'>, 'onChange'> & {\n  checked?: boolean;\n  defaultChecked?: boolean;\n  onCheckedChange?: (checked: boolean) => void;\n  disabled?: boolean;\n}) {\n  const [on, setOn] = useControllable(checked, defaultChecked, onCheckedChange);\n  const toggle = () => !disabled && setOn(!on);\n  useLabelTarget(id, toggle);\n  // The box is 16dp; the padding around it widens the target. Pair it with a\n  // Label htmlFor for a bigger one.\n  return (\n    <div className=\"flex p-1\" onClick={toggle}>\n      <div\n        className={cn(\n          'flex size-4 shrink-0 items-center justify-center rounded-[4] border',\n          on ? 'border-primary bg-primary' : 'border-input dark:bg-input/30',\n          disabled && 'opacity-50',\n          className,\n        )}\n        {...props}\n      >\n        {on && <span className=\"text-[10] font-bold text-primary-foreground\">✓</span>}\n      </div>\n    </div>\n  );\n}\n\nexport { Checkbox };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-controllable",
+  "title": "Use Controllable",
+  "description": "Use Controllable for NativeScript (MasonKit).",
+  "files": [
+    {
+      "path": "src/hooks/use-controllable.ts",
+      "content": "import * as React from 'react';\n\n/** Radix-style controlled/uncontrolled state: `value` wins when it's set. */\nexport function useControllable<T>(value: T | undefined, defaultValue: T, onChange?: (value: T) => void) {\n  const [inner, setInner] = React.useState(defaultValue);\n  const current = value !== undefined ? value : inner;\n  const set = (next: T) => {\n    if (value === undefined) setInner(next);\n    onChange?.(next);\n  };\n  return [current, set] as const;\n}\n",
+      "type": "registry:hook"
+    }
+  ],
+  "type": "registry:hook"
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "switch",
+  "title": "Switch",
+  "description": "Switch for NativeScript (MasonKit).",
+  "registryDependencies": [
+    "@ns/utils",
+    "@ns/use-controllable",
+    "@ns/label"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/switch.tsx",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport { useControllable } from '@/hooks/use-controllable';\nimport { useLabelTarget } from '@/components/ui/label';\n\nfunction Switch({\n  className,\n  checked,\n  defaultChecked = false,\n  onCheckedChange,\n  disabled,\n  id,\n  ...props\n}: Omit<React.ComponentProps<'div'>, 'onChange'> & {\n  checked?: boolean;\n  defaultChecked?: boolean;\n  onCheckedChange?: (checked: boolean) => void;\n  disabled?: boolean;\n}) {\n  const [on, setOn] = useControllable(checked, defaultChecked, onCheckedChange);\n  useLabelTarget(id, () => !disabled && setOn(!on));\n  return (\n    <div\n      className={cn(\n        'flex h-[18] w-8 shrink-0 flex-row items-center rounded-full px-[1]',\n        on ? 'justify-end bg-primary' : 'justify-start bg-input dark:bg-input/80',\n        disabled && 'opacity-50',\n        className,\n      )}\n      onClick={() => !disabled && setOn(!on)}\n      {...props}\n    >\n      <div\n        className={cn(\n          'size-4 rounded-full',\n          on ? 'bg-background dark:bg-primary-foreground' : 'bg-background dark:bg-foreground',\n        )}\n      />\n    </div>\n  );\n}\n\nexport { Switch };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}
