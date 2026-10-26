@@ -4,12 +4,13 @@
   "title": "Spinner",
   "description": "Spinner for NativeScript (MasonKit).",
   "registryDependencies": [
-    "@ns/utils"
+    "@ns/utils",
+    "@ns/native"
   ],
   "files": [
     {
       "path": "src/components/ui/spinner.tsx",
-      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\n/** The platform's own activity indicator; color it with text-* classes. */\nfunction Spinner({ className, ...props }: React.ComponentProps<'div'>) {\n  return <activityindicator busy className={cn('size-4 text-foreground', className)} {...props} />;\n}\n\nexport { Spinner };\n",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport { isNative } from '@/lib/native';\n\nfunction Spinner({ className, ...props }: React.ComponentProps<'div'>) {\n  if (!isNative()) {\n    return (\n      <div\n        className={cn('size-4 animate-spin rounded-full border-2 border-current border-t-transparent', className)}\n        {...props}\n      />\n    );\n  }\n  return <activityindicator busy className={cn('size-4 text-foreground', className)} {...props} />;\n}\n\nexport { Spinner };\n",
       "type": "registry:ui"
     }
   ],

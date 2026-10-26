@@ -4,6 +4,18 @@
   "homepage": "https://github.com/triniwiz/nativescript-desktop-starter-template-shadcn",
   "items": [
     {
+      "name": "native",
+      "type": "registry:lib",
+      "title": "Native",
+      "description": "Native for NativeScript (MasonKit).",
+      "files": [
+        {
+          "path": "src/lib/native.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
       "name": "slot",
       "type": "registry:lib",
       "title": "Slot",
@@ -593,7 +605,8 @@
       "title": "Scroll Area",
       "description": "Scroll Area for NativeScript (MasonKit).",
       "registryDependencies": [
-        "@ns/utils"
+        "@ns/utils",
+        "@ns/native"
       ],
       "files": [
         {
@@ -722,7 +735,8 @@
       "title": "Spinner",
       "description": "Spinner for NativeScript (MasonKit).",
       "registryDependencies": [
-        "@ns/utils"
+        "@ns/utils",
+        "@ns/native"
       ],
       "files": [
         {

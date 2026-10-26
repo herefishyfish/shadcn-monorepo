@@ -148,7 +148,7 @@ type Plot = ReturnType<typeof usePlot>;
 
 /** The plot: y-axis labels, the SVG marks, the tooltip, then the x labels. */
 function PlotFrame({ plot, markup }: { plot: Plot; markup: string }) {
-  const { chart, keys, plotWidth, plotHeight, band, y, ticks, active, onTouch, valueFormatter, data, xKey } = plot;
+  const { chart, keys, plotWidth, plotHeight, band, y, ticks, active, setActive, onTouch, valueFormatter, data, xKey } = plot;
   // Thin the x labels so they don't collide (~48dp each).
   const every = Math.max(1, Math.ceil(48 / Math.max(band, 1)));
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${plotWidth}" height="${plotHeight}" viewBox="0 0 ${plotWidth} ${plotHeight}">${markup}</svg>`;
@@ -167,8 +167,14 @@ function PlotFrame({ plot, markup }: { plot: Plot; markup: string }) {
             </span>
           ))}
         </div>
-        {/* touch-pan-y: vertical drags still scroll the page; horizontal ones pick a category. */}
-        <div className="relative touch-pan-y" style={{ width: plotWidth, height: plotHeight }} onTouch={onTouch}>
+        {/* touch-pan-y: vertical drags still scroll the page; horizontal ones pick a category.
+            Hovering moves report as touch moves too, so the pointer leaving clears the pick. */}
+        <div
+          className="relative touch-pan-y"
+          style={{ width: plotWidth, height: plotHeight }}
+          onTouch={onTouch}
+          onMouseLeave={() => setActive(null)}
+        >
           <svg src={svg} style={{ width: plotWidth, height: plotHeight }} />
           {active !== null && (
             <div

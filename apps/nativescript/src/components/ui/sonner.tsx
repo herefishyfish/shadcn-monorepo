@@ -54,7 +54,7 @@ function ToastCard({ data }: { data: ToastData }) {
   return (
     <div
       ref={ref as never}
-      className="flex flex-row items-center gap-3 rounded-lg border border-border bg-popover p-4"
+      className="flex w-full max-w-[356px] flex-row items-center gap-3 rounded-lg border border-border bg-popover p-4"
     >
       {icons[data.type] && (
         <span

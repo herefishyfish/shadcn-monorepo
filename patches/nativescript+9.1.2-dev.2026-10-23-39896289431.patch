@@ -1,0 +1,26 @@
+diff --git a/node_modules/nativescript/lib/services/android-plugin-build-service.js b/node_modules/nativescript/lib/services/android-plugin-build-service.js
+index 2fe5faa..3ba1050 100644
+--- a/node_modules/nativescript/lib/services/android-plugin-build-service.js
++++ b/node_modules/nativescript/lib/services/android-plugin-build-service.js
+@@ -435,7 +435,7 @@ class AndroidPluginBuildService {
+     }
+     async buildPlugin(pluginBuildSettings) {
+         var _a;
+-        const gradlew = (_a = pluginBuildSettings.gradlePath) !== null && _a !== void 0 ? _a : (this.$hostInfo.isWindows ? "gradlew.bat" : "./gradlew");
++        const gradlew = (_a = pluginBuildSettings.gradlePath) !== null && _a !== void 0 ? _a : (this.$hostInfo.isWindows ? ".\\gradlew.bat" : "./gradlew");
+         const localArgs = [
+             "-p",
+             pluginBuildSettings.pluginDir,
+diff --git a/node_modules/nativescript/lib/services/android/gradle-command-service.js b/node_modules/nativescript/lib/services/android/gradle-command-service.js
+index b3e8a96..b584f74 100644
+--- a/node_modules/nativescript/lib/services/android/gradle-command-service.js
++++ b/node_modules/nativescript/lib/services/android/gradle-command-service.js
+@@ -19,7 +19,7 @@ class GradleCommandService {
+             stdio: stdio || "inherit",
+             shell: this.$hostInfo.isWindows,
+         };
+-        const gradleExecutable = (_a = options.gradlePath) !== null && _a !== void 0 ? _a : (this.$hostInfo.isWindows ? "gradlew.bat" : "./gradlew");
++        const gradleExecutable = (_a = options.gradlePath) !== null && _a !== void 0 ? _a : (this.$hostInfo.isWindows ? ".\\gradlew.bat" : "./gradlew");
+         const sanitizedGradleArgs = this.$hostInfo.isWindows
+             ? gradleArgs.map((arg) => (0, helpers_1.quoteString)(arg))
+             : gradleArgs;

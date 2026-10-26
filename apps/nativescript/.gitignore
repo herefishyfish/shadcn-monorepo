@@ -1,5 +1,5 @@
 # NativeScript
-hooks/
+/hooks/
 node_modules/
 platforms/
 

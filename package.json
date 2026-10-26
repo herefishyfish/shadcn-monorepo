@@ -8,18 +8,23 @@
   ],
   "scripts": {
     "dev": "npm run dev -w @repo/web",
+    "web": "npm run dev -w @repo/web",
     "android": "npm run android -w @repo/nativescript",
     "ios": "npm run ios -w @repo/nativescript",
     "windows": "npm run windows -w @repo/nativescript",
+    "android:fresh": "npm run android:fresh -w @repo/nativescript",
     "clean": "npm run clean -w @repo/nativescript",
-    "typecheck": "turbo typecheck"
+    "clean:platforms": "npm run clean:platforms -w @repo/nativescript",
+    "typecheck": "turbo typecheck",
+    "postinstall": "patch-package"
   },
   "devDependencies": {
+    "patch-package": "^8.0.1",
     "turbo": "^2.5.6"
   },
   "overrides": {
-    "@nativescript/core": "https://pkg.pr.new/@nativescript/core@7be61a7",
-    "@nativescript/canvas": "3.0.0-beta.4",
-    "@nativescript/canvas-svg": "3.0.0-beta.4"
+    "@nativescript/core": "https://pkg.pr.new/@nativescript/core@abae298",
+    "@nativescript/canvas": "3.0.0-beta.5",
+    "@nativescript/canvas-svg": "3.0.0-beta.5"
   }
 }

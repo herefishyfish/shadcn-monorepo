@@ -49,7 +49,7 @@ function OverlayProvider({ className, children, ...props }: React.ComponentProps
         {/* Only there while something is open: even hidden, it would take taps. */}
         {count > 0 && <div ref={setHost as never} className="absolute inset-0" />}
         {/* Sized by its toasts, so it only covers what it shows. */}
-        <div ref={setToastHost as never} className="absolute right-4 bottom-10 left-4 flex flex-col gap-2" />
+        <div ref={setToastHost as never} className="absolute right-4 bottom-10 left-4 flex flex-col items-end gap-2" />
         {/* Zero-size, at the top-left: tooltips position themselves in it
             without covering (and taking the pointer from) what they point at. */}
         <div ref={setFloatingHost as never} className="absolute top-0 left-0" />

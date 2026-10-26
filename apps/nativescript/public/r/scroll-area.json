@@ -4,12 +4,13 @@
   "title": "Scroll Area",
   "description": "Scroll Area for NativeScript (MasonKit).",
   "registryDependencies": [
-    "@ns/utils"
+    "@ns/utils",
+    "@ns/native"
   ],
   "files": [
     {
       "path": "src/components/ui/scroll-area.tsx",
-      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\n\n/** MasonKit's <scroll>, styled like shadcn's ScrollArea (native scrollbars). */\nfunction ScrollArea({ className, ...props }: React.ComponentProps<'div'>) {\n  return <scroll className={cn('relative', className)} {...(props as any)} />;\n}\n\nexport { ScrollArea };\n",
+      "content": "import * as React from 'react';\nimport { cn } from '@/lib/utils';\nimport { isNative } from '@/lib/native';\n\n/** MasonKit scrolls with <scroll>. Browsers scroll an overflow div. */\nfunction ScrollArea({ className, ...props }: React.ComponentProps<'div'>) {\n  const classes = cn('relative min-h-0 overflow-auto', className);\n  if (!isNative()) return <div className={classes} {...props} />;\n  return <scroll className={classes} {...(props as React.ComponentProps<'div'>)} />;\n}\n\nexport { ScrollArea };\n",
       "type": "registry:ui"
     }
   ],

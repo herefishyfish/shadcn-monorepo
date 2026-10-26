@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "native",
+  "title": "Native",
+  "description": "Native for NativeScript (MasonKit).",
+  "files": [
+    {
+      "path": "src/lib/native.ts",
+      "content": "/** True inside the NativeScript runtime. Browsers do not set these globals. */\nexport function isNative() {\n  const g = globalThis as { isAndroid?: boolean; isIOS?: boolean; isWindows?: boolean };\n  return Boolean(g.isAndroid || g.isIOS || g.isWindows);\n}\n",
+      "type": "registry:lib"
+    }
+  ],
+  "type": "registry:lib"
+}
